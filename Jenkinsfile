@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout mã nguồn từ repository
-                git 'https://github.com/ninhvi/test-fe-aws.git'
+                git 'git@github.com:ninhvi/test-fe-aws.git'
             }
         }
 
