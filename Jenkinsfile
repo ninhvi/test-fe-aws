@@ -12,15 +12,10 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
             }
         }
-         stage('Infos Yarn') {
-            steps {
-                sh 'yarn --version'
-            }
-        }
-
         stage('Build React App') {
             steps {
                 script {
+                    sh 'git pull'
                     sh 'sudo yarn install'
                     sh 'sudo yarn build'
                 }
