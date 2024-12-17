@@ -8,11 +8,11 @@ pipeline {
 
     stages {
         stage('Checkout') {
-            steps {
-                // Checkout mã nguồn từ repository
-                git 'https://github.com/ninhvi/test-fe-aws.git'
-            }
+        steps {
+            // Checkout nhánh main từ repository
+            git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
         }
+    }
 
         stage('Build React App') {
             steps {
