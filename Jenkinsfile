@@ -8,16 +8,15 @@ pipeline {
 
     stages {
         stage('Checkout') {
-        steps {
-            git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
+            steps {
+                git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
+                sh 'git pull'
             }
         }
-         stage('Setup Node.js and Yarn') {
+         stage('Install Yarn') {
             steps {
-                sh 'curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -'
-                sh 'sudo apt install -y nodejs'
                 sh 'npm install -g yarn'
-                 sh 'yarn --version'
+                sh 'yarn --version'
             }
         }
 
