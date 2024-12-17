@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'react-build'
-        REGISTRY = 'registry:5043/react-build'
+        REGISTRY = 'localhost:5000/react-build'
     }
 
     stages {
