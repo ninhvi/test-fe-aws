@@ -15,6 +15,11 @@ pipeline {
     }
 
         stage('Build React App') {
+            stage('Install Yarn') {
+            steps {
+                sh 'npm install -g yarn'   
+                }
+            }
             steps {
                 // Chạy lệnh để build ứng dụng React
                 script {
