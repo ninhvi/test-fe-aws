@@ -10,7 +10,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
-                sh 'git pull'
             }
         }
          stage('Install Yarn') {
