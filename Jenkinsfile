@@ -9,19 +9,21 @@ pipeline {
     stages {
         stage('Checkout') {
         steps {
-            // Checkout nhánh main từ repository
             git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
+            }
         }
-    }
 
-        stage('Build React App') {
-            stage('Install Yarn') {
+        stage('Installs yarn') {
             steps {
-                sh 'npm install -g yarn'   
+                script {
+                    sh 'npm install -g yarn'
+                    sh 'yarn --version'
                 }
             }
+        }
+
+        stage('Build React App') {
             steps {
-                // Chạy lệnh để build ứng dụng React
                 script {
                     sh 'yarn install'
                     sh 'yarn build'
@@ -31,7 +33,6 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                // Build Docker image từ Dockerfile
                 script {
                     sh 'docker build -t ${DOCKER_IMAGE} .'
                 }
@@ -40,7 +41,6 @@ pipeline {
 
         stage('Tag Docker Image') {
             steps {
-                // Tag Docker image để push lên registry
                 script {
                     sh 'docker tag ${DOCKER_IMAGE} ${REGISTRY}'
                 }
@@ -49,7 +49,6 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                // Push Docker image lên registry
                 script {
                     sh 'docker push ${REGISTRY}'
                 }
@@ -58,9 +57,7 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
-                // Các bước deploy Docker container vào môi trường sản xuất
                 script {
-                    // Nếu sử dụng docker-compose
                     sh 'docker-compose -f docker-compose.prod.yml up -d'
                 }
             }
