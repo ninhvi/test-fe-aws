@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE = 'react-build'
-        REGISTRY = '103.211.207.43:5000/react-build'
+        REGISTRY = 'localhost:5000/react-build'
     }
 
     stages {
@@ -17,7 +17,7 @@ pipeline {
                 script {
                     sh 'git fetch'
                     sh 'sudo yarn install'
-                    sh 'sudo yarn build'
+                    sh 'sudp yarn build'
                 }
             }
         }
