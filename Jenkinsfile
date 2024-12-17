@@ -12,13 +12,12 @@ pipeline {
             git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
             }
         }
-
-        stage('Installs yarn') {
+         stage('Setup Node.js and Yarn') {
             steps {
-                script {
-                    sh 'npm install -g yarn'
-                    sh 'yarn --version'
-                }
+                sh 'curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -'
+                sh 'sudo apt install -y nodejs'
+                sh 'npm install -g yarn'
+                 sh 'yarn --version'
             }
         }
 
