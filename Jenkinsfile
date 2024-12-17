@@ -54,7 +54,7 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 script {
-                    sh 'sudo docker-compose -f docker-compose.prod.yml up -d'
+                    sh 'sudo docker-compose -f docker-compose.yml up -d'
                 }
             }
         }
