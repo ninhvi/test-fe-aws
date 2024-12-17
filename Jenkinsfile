@@ -30,7 +30,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh 'docker build -t ${DOCKER_IMAGE} .'
+                    sh 'sudo docker build -t ${DOCKER_IMAGE} .'
                 }
             }
         }
@@ -38,7 +38,7 @@ pipeline {
         stage('Tag Docker Image') {
             steps {
                 script {
-                    sh 'docker tag ${DOCKER_IMAGE} ${REGISTRY}'
+                    sh 'sudo docker tag ${DOCKER_IMAGE} ${REGISTRY}'
                 }
             }
         }
@@ -46,7 +46,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    sh 'docker push ${REGISTRY}'
+                    sh 'sudo docker push ${REGISTRY}'
                 }
             }
         }
@@ -54,7 +54,7 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 script {
-                    sh 'docker-compose -f docker-compose.prod.yml up -d'
+                    sh 'sudo docker-compose -f docker-compose.prod.yml up -d'
                 }
             }
         }
