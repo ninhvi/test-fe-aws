@@ -8,7 +8,7 @@ services:
       - .:/app
     networks:
       - app-network
-    command: yarn build && yarn start
+    command: sh -c "yarn build && yarn start"
     expose:
       - "3000"  # Container chạy trên cổng 3000 bên trong mạng Docker
 
@@ -18,7 +18,6 @@ services:
     ports:
       - "8081:80"  # Chuyển sang cổng 8081 trên máy chủ và chuyển tiếp tới cổng 80 trong container
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
       - ./build:/usr/share/nginx/html  # Đảm bảo thư mục build được ánh xạ đúng
     networks:
       - app-network
