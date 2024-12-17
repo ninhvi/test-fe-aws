@@ -12,9 +12,8 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
             }
         }
-         stage('Install Yarn') {
+         stage('Infos Yarn') {
             steps {
-                sh 'npm install -g yarn'
                 sh 'yarn --version'
             }
         }
