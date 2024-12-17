@@ -10,16 +10,16 @@ services:
       - app-network
     command: yarn build && yarn start
     expose:
-      - "3000"
+      - "3000"  # Container sẽ chạy trên cổng 3000 bên trong mạng Docker
 
   nginx:
     image: nginx:alpine
     container_name: nginx
     ports:
-      - "80:80"
+      - "8080:80"  # Nginx sẽ lắng nghe trên cổng 8080 trên máy chủ và chuyển tiếp đến cổng 80 trong container
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./build:/usr/share/nginx/html
+      - ./build:/usr/share/nginx/html  # Đảm bảo thư mục build được ánh xạ đúng
     networks:
       - app-network
 
