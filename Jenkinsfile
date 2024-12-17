@@ -49,7 +49,13 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 script {
-                    sh 'sudo docker-compose -f docker-compose.yml up -d'
+                    sh '''
+                sudo docker-compose -f docker-compose.yml down --volumes --remove-orphans
+                sudo docker volume prune -f
+                sudo docker network prune -f
+
+                sudo docker-compose -f docker-compose.yml up -d --build
+            '''
                 }
             }
         }
