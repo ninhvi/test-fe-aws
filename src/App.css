@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+.icon-container {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; 
+  background-color: #f1f1f1;
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.icon-example {
+  font-size: 32px; 
+  color: #666; 
+  transition: transform 0.3s ease, color 0.3s ease; 
+}
+
+.icon-container:hover {
+  background-color: #ffeb3b;
+}
+
+.icon-container:hover .icon-example {
+  transform: scale(1.3); 
+  color: #f44336;
+  text-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+}
+

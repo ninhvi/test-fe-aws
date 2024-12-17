@@ -14,6 +14,9 @@ function App() {
   const decrementZ = useCounterStore((state) => state.decrement);
   return (
     <div className="App">
+      <div class="icon-container">
+        <i class="icon-example fas fa-star"></i>
+      </div>
       <header>
         mobx
         <div>
