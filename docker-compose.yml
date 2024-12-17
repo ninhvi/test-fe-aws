@@ -16,7 +16,7 @@ services:
     image: nginx:alpine
     container_name: nginx
     ports:
-      - "8081:80"  # Chuyển sang cổng 8081 trên máy chủ và chuyển tiếp tới cổng 80 trong container
+      - "8080:80"  # Chuyển sang cổng 8081 trên máy chủ và chuyển tiếp tới cổng 80 trong container
     volumes:
       - ./build:/usr/share/nginx/html  # Đảm bảo thư mục build được ánh xạ đúng
     networks:
