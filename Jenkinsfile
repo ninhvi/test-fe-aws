@@ -15,7 +15,7 @@ pipeline {
         stage('Build React App') {
             steps {
                 script {
-                    sh 'git pull'
+                    sh 'git fetch'
                     sh 'sudo yarn install'
                     sh 'sudo yarn build'
                 }
