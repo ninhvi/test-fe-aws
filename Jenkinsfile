@@ -17,7 +17,7 @@ pipeline {
                 script {
                     sh 'git fetch'
                     sh 'sudo yarn install'
-                    sh 'sudp yarn build'
+                    sh 'sudo yarn build'
                 }
             }
         }
