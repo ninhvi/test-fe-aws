@@ -12,7 +12,7 @@ pipeline {
                 git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
             }
         }
-        stage('Build React App') {
+        stage('Build') {
             steps {
                 script {
                     sh 'git fetch'
@@ -22,7 +22,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Build Docker') {
             steps {
                 script {
                     sh 'sudo docker build -t ${DOCKER_IMAGE} .'
@@ -30,23 +30,16 @@ pipeline {
             }
         }
 
-        stage('Tag Docker Image') {
+        stage('Push Docker') {
             steps {
                 script {
                     sh 'sudo docker tag ${DOCKER_IMAGE} ${REGISTRY}'
-                }
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                script {
                     sh 'sudo docker push ${REGISTRY}'
                 }
             }
         }
 
-        stage('Deploy to Production') {
+        stage('Deploy') {
             steps {
                 script {
                     sh '''
