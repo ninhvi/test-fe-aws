@@ -95,6 +95,14 @@ pipeline {
             steps {
                 script {
                     sh '''
+                     if [ $(sudo docker ps -q --filter "name=decode-be-app") ]; then
+                            sudo docker stop decode-be-app
+                            sudo docker rm decode-be-app
+                        fi
+                        if [ $(sudo docker ps -q --filter "name=react-app") ]; then
+                            sudo docker stop react-app
+                            sudo docker rm react-app
+                        fi
                     sudo docker-compose -f /home/deploy/docker-compose.yml pull
                     sudo docker-compose -f /home/deploy/docker-compose.yml up -d
                     '''
