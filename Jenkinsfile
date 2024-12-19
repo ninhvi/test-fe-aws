@@ -91,6 +91,16 @@ pipeline {
                 sh 'sudo docker push ${REGISTRY}'
             }
         }
+           stage('Deploy') {
+            steps {
+                script {
+                    sh '''
+                    sudo docker-compose -f /home/deploy/docker-compose.yml pull
+                    sudo docker-compose -f /home/deploy/docker-compose.yml up -d
+                    '''
+                }
+            }
+        }
     }
 
     post {
