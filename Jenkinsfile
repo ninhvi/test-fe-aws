@@ -73,39 +73,43 @@ pipeline {
     stages {
         stage('Clone and Build') {
             steps {
-                git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
-                sh 'sudo yarn install'
-                sh 'sudo yarn build'
+                script {
+                    git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
+                    sh 'sudo yarn install'
+                    sh 'sudo yarn build'
+                }
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'sudo docker build -t ${DOCKER_IMAGE} .'
+                script {
+                    sh 'sudo docker build -t ${DOCKER_IMAGE} .'
+                }
             }
         }
 
         stage('Push Docker Image') {
             steps {
-                sh 'sudo docker tag ${DOCKER_IMAGE} ${REGISTRY}'
-                sh 'sudo docker push ${REGISTRY}'
+                script {
+                    sh 'sudo docker tag ${DOCKER_IMAGE} ${REGISTRY}'
+                    sh 'sudo docker push ${REGISTRY}'
+                }
             }
         }
-           stage('Deploy') {
+
+        stage('Deploy') {
             steps {
                 script {
                     sh '''
-                     if [ $(sudo docker ps -q --filter "name=decode-be-app") ]; then
-                            sudo docker stop decode-be-app
-                            sudo docker rm decode-be-app
-                        fi
                         if [ $(sudo docker ps -q --filter "name=react-app") ]; then
                             sudo docker stop react-app
                             sudo docker rm react-app
                         fi
-                    sudo docker-compose -f /home/deploy/docker-compose.yml pull
-                    sudo docker-compose -f /home/deploy/docker-compose.yml up -d
                     '''
+
+                    sh 'sudo docker-compose -f /home/deploy/docker-compose.yml pull'
+                    sh 'sudo docker-compose -f /home/deploy/docker-compose.yml up -d'
                 }
             }
         }
@@ -120,4 +124,3 @@ pipeline {
         }
     }
 }
-
