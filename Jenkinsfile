@@ -63,38 +63,17 @@
 //         }
 //     }
 // }
-
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = 'react-build'
-        REGISTRY = 'localhost:5000/react-build'
+        DOCKER_IMAGE_FRONTEND = 'localhost:5000/react-build:latest'
     }
     stages {
-        stage('Clone and Build') {
-            steps {
-                script {
-                    git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git'
-                    sh 'sudo yarn install'
-                    sh 'sudo yarn build'
-                }
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
-                script {
-                    sh 'sudo docker build -t ${DOCKER_IMAGE} .'
-                }
-            }
-        }
-
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    sh 'sudo docker tag ${DOCKER_IMAGE} ${REGISTRY}'
-                    sh 'sudo docker push ${REGISTRY}'
-                }
+                git branch: 'main', url: 'https://github.com/ninhvi/test-fe-aws.git', credentialsId: 'token_fe'
+                sh 'sudo docker build -t ${DOCKER_IMAGE_FRONTEND} ./'
+                sh 'sudo docker push ${DOCKER_IMAGE_FRONTEND}'
             }
         }
 
@@ -106,10 +85,9 @@ pipeline {
                             sudo docker stop react-app
                             sudo docker rm react-app
                         fi
+                        sudo docker-compose -f /home/deploy/docker-compose.yml pull
+                        sudo docker-compose -f /home/deploy/docker-compose.yml up -d
                     '''
-
-                    sh 'sudo docker-compose -f /home/deploy/docker-compose.yml pull'
-                    sh 'sudo docker-compose -f /home/deploy/docker-compose.yml up -d'
                 }
             }
         }
@@ -117,10 +95,10 @@ pipeline {
 
     post {
         success {
-            echo 'Frontend build and push successful!'
+            echo 'Build and deploy successful!'
         }
         failure {
-            echo 'Frontend build or push failed!'
+            echo 'Build or deploy failed!'
         }
     }
 }
