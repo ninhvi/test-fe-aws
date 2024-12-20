@@ -66,7 +66,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE_FRONTEND = 'localhost:5000/react-build:latest'
+        DOCKER_IMAGE_FRONTEND = 'localhost:5000/react-app:latest'
     }
     stages {
         stage('Build Docker Image') {
